@@ -4,7 +4,7 @@
 This project is a RESTful API for managing spy cats and missions.
 
 ## Prerequisites
-- Go 1.16+
+- Go 1.22+
 - MySQL (or any compatible database)
 - Postman (optional, for testing endpoints)
 
