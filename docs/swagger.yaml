@@ -1,0 +1,406 @@
+definitions:
+  models.AddTarget:
+    properties:
+      country:
+        type: string
+      missionID:
+        type: integer
+      name:
+        type: string
+      notes:
+        type: string
+    type: object
+  models.CreateMission:
+    properties:
+      isComplete:
+        type: boolean
+      target:
+        items:
+          $ref: '#/definitions/models.AddTarget'
+        type: array
+    type: object
+  models.CreateSpyCat:
+    properties:
+      breed:
+        type: string
+      name:
+        type: string
+      salary:
+        type: number
+      yearsOfExperience:
+        type: integer
+    type: object
+  models.Mission:
+    properties:
+      cat:
+        $ref: '#/definitions/models.SpyCat'
+      catID:
+        type: integer
+      id:
+        type: integer
+      isComplete:
+        type: boolean
+      targets:
+        items:
+          $ref: '#/definitions/models.Target'
+        type: array
+    type: object
+  models.SpyCat:
+    properties:
+      breed:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      salary:
+        type: number
+      yearsOfExperience:
+        type: integer
+    type: object
+  models.Target:
+    properties:
+      country:
+        type: string
+      id:
+        type: integer
+      isComplete:
+        type: boolean
+      missionID:
+        type: integer
+      name:
+        type: string
+      notes:
+        type: string
+    type: object
+  models.UpdateMission:
+    properties:
+      id:
+        type: integer
+      isComplete:
+        type: boolean
+    type: object
+  models.UpdateSalaryRequest:
+    properties:
+      id:
+        type: integer
+      salary:
+        type: number
+    type: object
+  models.UpdateTarget:
+    properties:
+      id:
+        type: integer
+      isComplete:
+        type: boolean
+      notes:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/Missions/AssignCat:
+    put:
+      consumes:
+      - application/json
+      description: Assign a cat to an existing mission in the system
+      parameters:
+      - description: Mission ID
+        in: query
+        name: missionID
+        required: true
+        type: integer
+      - description: Cat ID
+        in: query
+        name: catID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Cat assigned to mission
+          schema:
+            type: string
+      summary: Assign a cat to a mission
+      tags:
+      - Missions
+  /api/Missions/CreateMission:
+    post:
+      consumes:
+      - application/json
+      description: Create a new mission in the system
+      parameters:
+      - description: Mission object that needs to be added
+        in: body
+        name: mission
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateMission'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Mission'
+      summary: Create a new mission
+      tags:
+      - Missions
+  /api/Missions/GetMission:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a mission by ID
+      parameters:
+      - description: Mission ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Mission'
+      summary: Get mission
+      tags:
+      - Missions
+  /api/Missions/GetMissions:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of all missions in the system
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Mission'
+            type: array
+      summary: Get missions
+      tags:
+      - Missions
+  /api/Missions/RemoveMission:
+    delete:
+      consumes:
+      - application/json
+      description: Remove a mission from the system by ID
+      parameters:
+      - description: Mission ID to be deleted
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Mission deleted
+          schema:
+            type: string
+      summary: Remove a mission
+      tags:
+      - Missions
+  /api/Missions/UpdateMission:
+    put:
+      consumes:
+      - application/json
+      description: Update an existing mission in the system
+      parameters:
+      - description: Updated mission object
+        in: body
+        name: mission
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateMission'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Mission'
+      summary: Update a mission
+      tags:
+      - Missions
+  /api/Missions/UpdateMissionTargets:
+    put:
+      consumes:
+      - application/json
+      description: Update targets for an existing mission in the system
+      parameters:
+      - description: Mission ID
+        in: query
+        name: missionID
+        required: true
+        type: integer
+      - description: Updated targets
+        in: body
+        name: targets
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/models.UpdateTarget'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Mission targets updated
+          schema:
+            type: string
+      summary: Update mission targets
+      tags:
+      - Missions
+  /api/SpyCats/CreateSpyCat:
+    post:
+      consumes:
+      - application/json
+      description: Create a new SpyCat in the system
+      parameters:
+      - description: SpyCat object that needs to be added
+        in: body
+        name: spyCat
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateSpyCat'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SpyCat'
+      summary: Create a new SpyCat
+      tags:
+      - SpyCats
+  /api/SpyCats/GetSpyCat:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a single SpyCat by ID
+      parameters:
+      - description: SpyCat ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SpyCat'
+      summary: Get SpyCat
+      tags:
+      - SpyCats
+  /api/SpyCats/GetSpyCats:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a list of all SpyCats in the system
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.SpyCat'
+            type: array
+      summary: Get SpyCats
+      tags:
+      - SpyCats
+  /api/SpyCats/RemoveSpyCat:
+    delete:
+      consumes:
+      - application/json
+      description: Remove a SpyCat from the system by ID
+      parameters:
+      - description: SpyCat ID to be deleted
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: SpyCat deleted
+          schema:
+            type: string
+      summary: Remove a SpyCat
+      tags:
+      - SpyCats
+  /api/SpyCats/UpdateSpyCat:
+    put:
+      consumes:
+      - application/json
+      description: Update the salary of a SpyCat by ID
+      parameters:
+      - description: Request body containing ID and new Salary
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateSalaryRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: SpyCat salary updated
+          schema:
+            type: string
+      summary: Update SpyCat Salary
+      tags:
+      - SpyCats
+  /api/Targets/AddTarget:
+    post:
+      consumes:
+      - application/json
+      description: Add a new target to a mission in the system
+      parameters:
+      - description: Target object that needs to be added
+        in: body
+        name: target
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddTarget'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Target'
+      summary: Add a new target
+      tags:
+      - Targets
+  /api/Targets/RemoveTarget:
+    delete:
+      consumes:
+      - application/json
+      description: Remove a target from a mission in the system by ID
+      parameters:
+      - description: Target ID to be deleted
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Target deleted
+          schema:
+            type: string
+      summary: Remove a target
+      tags:
+      - Targets
+swagger: "2.0"

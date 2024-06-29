@@ -1,0 +1,625 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/Missions/AssignCat": {
+            "put": {
+                "description": "Assign a cat to an existing mission in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Assign a cat to a mission",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Mission ID",
+                        "name": "missionID",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Cat ID",
+                        "name": "catID",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cat assigned to mission",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Missions/CreateMission": {
+            "post": {
+                "description": "Create a new mission in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Create a new mission",
+                "parameters": [
+                    {
+                        "description": "Mission object that needs to be added",
+                        "name": "mission",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateMission"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Mission"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Missions/GetMission": {
+            "get": {
+                "description": "Retrieve a mission by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Get mission",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Mission ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Mission"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Missions/GetMissions": {
+            "get": {
+                "description": "Retrieve a list of all missions in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Get missions",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Mission"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Missions/RemoveMission": {
+            "delete": {
+                "description": "Remove a mission from the system by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Remove a mission",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Mission ID to be deleted",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mission deleted",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Missions/UpdateMission": {
+            "put": {
+                "description": "Update an existing mission in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Update a mission",
+                "parameters": [
+                    {
+                        "description": "Updated mission object",
+                        "name": "mission",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateMission"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Mission"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Missions/UpdateMissionTargets": {
+            "put": {
+                "description": "Update targets for an existing mission in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Missions"
+                ],
+                "summary": "Update mission targets",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Mission ID",
+                        "name": "missionID",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Updated targets",
+                        "name": "targets",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.UpdateTarget"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Mission targets updated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/SpyCats/CreateSpyCat": {
+            "post": {
+                "description": "Create a new SpyCat in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SpyCats"
+                ],
+                "summary": "Create a new SpyCat",
+                "parameters": [
+                    {
+                        "description": "SpyCat object that needs to be added",
+                        "name": "spyCat",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateSpyCat"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.SpyCat"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/SpyCats/GetSpyCat": {
+            "get": {
+                "description": "Retrieve a single SpyCat by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SpyCats"
+                ],
+                "summary": "Get SpyCat",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "SpyCat ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.SpyCat"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/SpyCats/GetSpyCats": {
+            "get": {
+                "description": "Retrieve a list of all SpyCats in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SpyCats"
+                ],
+                "summary": "Get SpyCats",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.SpyCat"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/SpyCats/RemoveSpyCat": {
+            "delete": {
+                "description": "Remove a SpyCat from the system by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SpyCats"
+                ],
+                "summary": "Remove a SpyCat",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "SpyCat ID to be deleted",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SpyCat deleted",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/SpyCats/UpdateSpyCat": {
+            "put": {
+                "description": "Update the salary of a SpyCat by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SpyCats"
+                ],
+                "summary": "Update SpyCat Salary",
+                "parameters": [
+                    {
+                        "description": "Request body containing ID and new Salary",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateSalaryRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SpyCat salary updated",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Targets/AddTarget": {
+            "post": {
+                "description": "Add a new target to a mission in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Targets"
+                ],
+                "summary": "Add a new target",
+                "parameters": [
+                    {
+                        "description": "Target object that needs to be added",
+                        "name": "target",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.AddTarget"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Target"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Targets/RemoveTarget": {
+            "delete": {
+                "description": "Remove a target from a mission in the system by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Targets"
+                ],
+                "summary": "Remove a target",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Target ID to be deleted",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Target deleted",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.AddTarget": {
+            "type": "object",
+            "properties": {
+                "country": {
+                    "type": "string"
+                },
+                "missionID": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "notes": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.CreateMission": {
+            "type": "object",
+            "properties": {
+                "isComplete": {
+                    "type": "boolean"
+                },
+                "target": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.AddTarget"
+                    }
+                }
+            }
+        },
+        "models.CreateSpyCat": {
+            "type": "object",
+            "properties": {
+                "breed": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "salary": {
+                    "type": "number"
+                },
+                "yearsOfExperience": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Mission": {
+            "type": "object",
+            "properties": {
+                "cat": {
+                    "$ref": "#/definitions/models.SpyCat"
+                },
+                "catID": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isComplete": {
+                    "type": "boolean"
+                },
+                "targets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Target"
+                    }
+                }
+            }
+        },
+        "models.SpyCat": {
+            "type": "object",
+            "properties": {
+                "breed": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "salary": {
+                    "type": "number"
+                },
+                "yearsOfExperience": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Target": {
+            "type": "object",
+            "properties": {
+                "country": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isComplete": {
+                    "type": "boolean"
+                },
+                "missionID": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "notes": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UpdateMission": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "isComplete": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "models.UpdateSalaryRequest": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "salary": {
+                    "type": "number"
+                }
+            }
+        },
+        "models.UpdateTarget": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "isComplete": {
+                    "type": "boolean"
+                },
+                "notes": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
